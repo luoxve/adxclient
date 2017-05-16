@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="adxclient:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/adxclient_jar</output-path>
+    <root id="archive" name="adxclient.jar">
+      <element id="module-output" name="adxclient" />
+    </root>
+  </artifact>
+</component>
