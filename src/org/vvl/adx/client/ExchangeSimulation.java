@@ -21,17 +21,16 @@ public class ExchangeSimulation implements Runnable {
     }
 
     // 请求URL
-    String reqBidUrl = "http://60.206.107.185:8080/mi/bid";
+    String reqBidUrl = Config.DSPBIDURL;
     // 胜出URL
-    String winUrl = "http://60.206.107.185/xiaomi/v1/w";
+    String winUrl = Config.WINURL;
     // 图片URL
-    String imgUrl = "http://p3.ifengimg.com/a/2017_14/43f07fbeb718f7f_size33_w652_h352.jpg";
+    String imgUrl = Config.IMGURL;
     // 曝光展示URL
-    String impUrl = "http://60.206.107.185/xiaomi/v1/i";
+    String impUrl = Config.IMPURL;
     // 曝光点击URL
-    String clickUrl = "http://60.206.107.185/xiaomi/v1/c";
+    String clickUrl = Config.CLICKURL;
     // JSON文件URL
-//    String jsonFileUrl = "E:\\data\\json\\template.1.3.json";
     String jsonFileUrl = Config.JSONDIR;
     // 加密价格
     String price = "cHJpY2VlbmNvZGluZ3doZTzKyOjDQx_zjiVOmw";

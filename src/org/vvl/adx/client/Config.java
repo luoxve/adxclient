@@ -7,28 +7,37 @@ import static org.vvl.adx.client.CommonUtils.getSystemEnv;
  */
 public class Config {
     // 开启线程数
-    public static int THREADCOUNTS = 10;
+    public static int THREADCOUNTS;
     // 每线程执行次数（-1：永久执行）
-    public static int EXECOUNTS = 10;
+    public static int EXECOUNTS;
     // 胜出概率（-1：不执行，100：百分百执行）
-    public static int WINBOUND = 30;
+    public static int WINBOUND;
     // 曝光点击概率（-1：不执行，100：百分百执行，-2：随机概率）
-    public static int CLKBOUND = 30;
-    // 请求URL（DSP竞价URL）
-    public static String DSPBIDURL = "http://60.206.107.185:8080/mi/bid";
+    public static int CLKBOUND;
     // JSON文件所在目录
-    public static String JSONDIR = "/opt/adxclient/json/";
+    public static String JSONDIR;
     // 统计日志存放目录
-    public static String STATISTICSLOGDIR = "/opt/adxclient/log/";
+    public static String STATISTICSLOGDIR;
     // 线程监控日志存放目录
-    public static String THREADMONITORLOGDIR = "/opt/adxclient/log/";
+    public static String THREADMONITORLOGDIR;
+
+    // 请求URL（DSP竞价URL）
+    public static String DSPBIDURL;
+    // 胜出URL
+    public static String WINURL;
+    // 图片URL
+    public static String IMGURL;
+    // 曝光展示URL
+    public static String IMPURL;
+    // 曝光点击URL
+    public static String CLICKURL;
 
     // 是否启动统计日志功能
-    public static boolean ISSTATISTICSLOG = true;
+    public static boolean ISSTATISTICSLOG;
     // 是否启动线程监控日志功能
-    public static boolean ISMONITORLOG = true;
+    public static boolean ISMONITORLOG;
     // 是否启动图片加载
-    public static boolean ISIMGSHOW = true;
+    public static boolean ISIMGSHOW;
 
     /**
      * 初始化配置数据
@@ -54,5 +63,16 @@ public class Config {
         Config.ISMONITORLOG = Boolean.valueOf(getSystemEnv("ISMONITORLOG", "true"));
         // 是否启动图片加载
         Config.ISIMGSHOW = Boolean.valueOf(getSystemEnv("ISIMGSHOW", "false"));
+
+        // 请求URL（DSP竞价URL）
+        Config.DSPBIDURL = getSystemEnv("DSPBIDURL", "http://60.206.107.185:8080/mi/bid");
+        // 胜出URL
+        Config.WINURL = getSystemEnv("WINURL", "http://60.206.107.185/xiaomi/v1/w");
+        // 图片URL
+        Config.IMGURL = getSystemEnv("IMGURL", "http://p3.ifengimg.com/a/2017_14/43f07fbeb718f7f_size33_w652_h352.jpg");
+        // 曝光展示URL
+        Config.IMPURL = getSystemEnv("IMPURL", "http://60.206.107.185/xiaomi/v1/i");
+        // 曝光点击URL
+        Config.CLICKURL = getSystemEnv("CLICKURL", "http://60.206.107.185/xiaomi/v1/c");
     }
 }
