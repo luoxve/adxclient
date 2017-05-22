@@ -1,5 +1,8 @@
 package org.vvl.adx.client;
 
+import org.vvl.adx.logger.Logger;
+import org.vvl.adx.logger.LoggerFactory;
+
 import java.util.Date;
 import java.util.Random;
 
@@ -12,6 +15,7 @@ import static org.vvl.adx.client.JsonFiles.fileNames;
  */
 public class ExchangeSimulation implements Runnable {
 
+    private static Logger logger = LoggerFactory.getLogger(ExchangeSimulation.class);
     private Gallery gallery;
     private Pool pool;
 
@@ -125,7 +129,7 @@ public class ExchangeSimulation implements Runnable {
                     }
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                logger.warn(Thread.currentThread().getName() + " EXCEPTION.", e.getMessage());
             }
         }
         Global.endDate = new Date();

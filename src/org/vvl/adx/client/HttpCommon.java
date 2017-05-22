@@ -10,6 +10,8 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
+import org.vvl.adx.logger.Logger;
+import org.vvl.adx.logger.LoggerFactory;
 
 import java.io.IOException;
 import java.util.concurrent.locks.Lock;
@@ -25,6 +27,7 @@ import static org.vvl.adx.client.CommonUtils.loadJsonFileToString;
  */
 public class HttpCommon {
 
+    private static Logger logger = LoggerFactory.getLogger(HttpCommon.class);
     private static Lock lockGet = new ReentrantLock();
     private static Lock lockPost = new ReentrantLock();
 
@@ -55,7 +58,8 @@ public class HttpCommon {
             //发送json需要设置contentType
             se.setContentType("application/json");
             httpPost.setEntity(se);
-            RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(10000).setConnectTimeout(10000).setConnectionRequestTimeout(10000).build();//设置请求和传输超时时间
+            // 设置请求和传输超时时间
+            RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(10000).setConnectTimeout(10000).setConnectionRequestTimeout(10000).build();
             httpPost.setConfig(requestConfig);
             // 加锁，防止请求地址占用
             lockPost.lock();
@@ -75,7 +79,7 @@ public class HttpCommon {
 //                System.out.println("###:" + resStr);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.warn("POST mode exception.", e.getMessage());
         } finally {
             try {
                 if (httpclient != null) httpclient.close();
@@ -116,7 +120,7 @@ public class HttpCommon {
 //                System.out.println("Response content: " + EntityUtils.toString(entity));
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.warn("GET mode exception.", e.getMessage());
         } finally {
             try {
                 if (httpclient != null) httpclient.close();

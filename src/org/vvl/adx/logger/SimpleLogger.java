@@ -1,6 +1,6 @@
 package org.vvl.adx.logger;
 
-import voyage.common.text.FastDateFormat;
+import org.vvl.adx.date.FastDateFormat;
 
 import java.io.PrintStream;
 import java.text.DateFormat;

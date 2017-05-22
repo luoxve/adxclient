@@ -48,15 +48,15 @@ public class Config {
         // 每线程执行次数（-1：永久执行）
         Config.EXECOUNTS = Integer.valueOf(getSystemEnv("EXECOUNTS", "-1"));
         // 胜出概率（-1：不执行，100：百分百执行）
-        Config.WINBOUND = Integer.valueOf(getSystemEnv("WINBOUND", "100"));
-        // 曝光点击概率（-1：不执行，100：百分百执行，-2：随机概率）
-        Config.CLKBOUND = Integer.valueOf(getSystemEnv("CLKBOUND", "100"));
+        Config.WINBOUND = Integer.valueOf(getSystemEnv("WINBOUND", "10"));
+        // 曝光点击概率（-1：不执行，100：百分百执行，-2：随机概率[1,10]%）
+        Config.CLKBOUND = Integer.valueOf(getSystemEnv("CLKBOUND", "-2"));
         // JSON文件所在目录
-        Config.JSONDIR = getSystemEnv("JSONDIR", "/opt/adxclient/json/"); // /opt/adxclient/json/ or E:\data\json2\500\
+        Config.JSONDIR = getSystemEnv("JSONDIR", "E:/opt/adxclient/json/"); // /opt/adxclient/json/ or E:/opt/adxclient/json/
         // 统计日志存放目录
-        Config.STATISTICSLOGDIR = getSystemEnv("STATISTICSLOGDIR", "/opt/adxclient/log/"); // /opt/adxclient/log/ or E:\data\log\
+        Config.STATISTICSLOGDIR = getSystemEnv("STATISTICSLOGDIR", "E:/opt/adxclient/log/"); // /opt/adxclient/log/ or E:/opt/adxclient/log/
         // 线程监控日志存放目录
-        Config.THREADMONITORLOGDIR = getSystemEnv("THREADMONITORLOGDIR", "/opt/adxclient/log/"); // /opt/adxclient/log/ or E:\data\log\
+        Config.THREADMONITORLOGDIR = getSystemEnv("THREADMONITORLOGDIR", "E:/opt/adxclient/log/"); // /opt/adxclient/log/ or E:/opt/adxclient/log/
         // 是否启动统计日志功能
         Config.ISSTATISTICSLOG = Boolean.valueOf(getSystemEnv("ISSTATISTICSLOG", "true"));
         // 是否启动线程监控日志功能
@@ -65,7 +65,7 @@ public class Config {
         Config.ISIMGSHOW = Boolean.valueOf(getSystemEnv("ISIMGSHOW", "false"));
 
         // 请求URL（DSP竞价URL）
-        Config.DSPBIDURL = getSystemEnv("DSPBIDURL", "http://60.206.107.185:8080/mi/bid");
+        Config.DSPBIDURL = getSystemEnv("DSPBIDURL", "http://dsp.tsapk.com/mi/bid"); // http://60.206.107.185:8080/mi/bid or http://dsp.tsapk.com/mi/bid
         // 胜出URL
         Config.WINURL = getSystemEnv("WINURL", "http://60.206.107.185/xiaomi/v1/w");
         // 图片URL
