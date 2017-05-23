@@ -4,10 +4,12 @@ import org.vvl.adx.logger.Logger;
 import org.vvl.adx.logger.LoggerFactory;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
-import static org.vvl.adx.client.HttpCommon.requestGet;
-import static org.vvl.adx.client.HttpCommon.requestPost;
+import static org.vvl.adx.client.HttpCommon.*;
+import static org.vvl.adx.client.JsonFiles.fileContents;
 import static org.vvl.adx.client.JsonFiles.fileNames;
 
 /**
@@ -60,30 +62,34 @@ public class ExchangeSimulation implements Runnable {
             }
             count++;
             try {
-                // 随机取JSON文件名字
-                String fileName = randomJsonFileName();
+                // 随机取JSON文件数据
+                Map<String, String> dataMap = randomJsonFileContent();
+                if (dataMap == null) continue;
+                // 当前文件名称
+                String fileName = dataMap.get("name");
+                // 当前文件内容(json)
+                String jsonContent = dataMap.get("json");
 //                String fileName = sequenceJsonFileName();
-                String tempName = jsonFileUrl + fileName;
                 // 1.请求DSP
-                String respStr = requestPost(reqBidUrl, tempName);
+                String respStr = requestPost(reqBidUrl, jsonContent);
                 if (respStr == null) continue;
                 // 没有响应不成功则继续下一次文请求
                 if (respStr == "000") {
                     if (Config.ISMONITORLOG) { // 是否启动线程监控
-                        String monitorLog = Thread.currentThread().getName() + "\t" + count + "\t" + tempName + "\t000\tthis file is not exists.\n";
+                        String monitorLog = Thread.currentThread().getName() + "\t" + count + "\t" + fileName + "\t000\tthis file is not exists.\n";
                         pool.put(monitorLog);
                     }
                     continue;
                 }
                 if (respStr == "204") {
                     if (Config.ISMONITORLOG) { // 是否启动线程监控
-                        String monitorLog = Thread.currentThread().getName() + "\t" + count + "\t" + tempName + "\t204\tno contents.\n";
+                        String monitorLog = Thread.currentThread().getName() + "\t" + count + "\t" + fileName + "\t204\tno contents.\n";
                         pool.put(monitorLog);
                     }
                     continue;
                 }
                 if (Config.ISMONITORLOG) { // 是否启动线程监控
-                    String monitorLog = Thread.currentThread().getName() + "\t" + count + "\t" + tempName + "\t200.\n";
+                    String monitorLog = Thread.currentThread().getName() + "\t" + count + "\t" + fileName + "\t200.\n";
                     pool.put(monitorLog);
                 }
                 // 统计响应200的请求
@@ -134,6 +140,8 @@ public class ExchangeSimulation implements Runnable {
         }
         Global.endDate = new Date();
         System.out.println("used time:" + (Global.endDate.getTime() - Global.startDate.getTime()));
+        // 关闭HttpClient
+        close();
     }
 
     private String replaceWinPrice(String nurl) {
@@ -159,14 +167,15 @@ public class ExchangeSimulation implements Runnable {
     }
 
     /**
-     * 随机抽取一个JSON文件
+     * 随机抽取一个JSON文件内容
      * @return
      */
-    private String randomJsonFileName() {
-//        // 初始化所有JSON文件名称
-//        init();
-        if (fileNames.size() < 0) return "not";
-        randomIndex = new Random().nextInt(fileNames.size());
-        return fileNames.get(randomIndex);
+    private Map<String, String> randomJsonFileContent() {
+        Map<String, String> ret = new HashMap<>();
+        if (fileContents.size() == 0 || fileNames.size() == 0) return null;
+        randomIndex = new Random().nextInt(fileContents.size());
+        ret.put("name", fileNames.get(randomIndex));
+        ret.put("json", fileContents.get(randomIndex));
+        return ret;
     }
 }

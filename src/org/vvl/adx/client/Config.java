@@ -44,7 +44,7 @@ public class Config {
      */
     public static void init() {
         // 线程数
-        Config.THREADCOUNTS = Integer.valueOf(getSystemEnv("THREADCOUNTS", "10"));
+        Config.THREADCOUNTS = Integer.valueOf(getSystemEnv("THREADCOUNTS", "50"));
         // 每线程执行次数（-1：永久执行）
         Config.EXECOUNTS = Integer.valueOf(getSystemEnv("EXECOUNTS", "-1"));
         // 胜出概率（-1：不执行，100：百分百执行）
@@ -60,7 +60,7 @@ public class Config {
         // 是否启动统计日志功能
         Config.ISSTATISTICSLOG = Boolean.valueOf(getSystemEnv("ISSTATISTICSLOG", "true"));
         // 是否启动线程监控日志功能
-        Config.ISMONITORLOG = Boolean.valueOf(getSystemEnv("ISMONITORLOG", "true"));
+        Config.ISMONITORLOG = Boolean.valueOf(getSystemEnv("ISMONITORLOG", "false"));
         // 是否启动图片加载
         Config.ISIMGSHOW = Boolean.valueOf(getSystemEnv("ISIMGSHOW", "false"));
 

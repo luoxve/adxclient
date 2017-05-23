@@ -1,9 +1,6 @@
 package org.vvl.adx.client;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileReader;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -57,17 +54,37 @@ public class CommonUtils {
      * @return
      * @throws Exception
      */
-    public static String loadJsonFileToString(String url) throws Exception {
-        // 检查文件是否存在
-        File file = new File(url);
+    public static String loadJsonFileToString(String url) {
+        return loadJsonFileToString(new File(url));
+    }
+
+    /**
+     * 把指定文件的内容读到String中
+     * @param file JSON文件
+     * @return
+     * @throws Exception
+     */
+    public static String loadJsonFileToString(File file) {
         if (!file.exists()) return null;
-        StringBuffer sb = new StringBuffer();
-        BufferedReader br = new BufferedReader(new FileReader(url));
+        StringBuilder sb = new StringBuilder();
+        BufferedReader br = null;
         String lines = null;
-        while ((lines = br.readLine()) != null) {
-            sb.append(lines);
+        try {
+            br = new BufferedReader(new FileReader(file));
+            while ((lines = br.readLine()) != null) {
+                sb.append(lines);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (br != null) br.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        br.close();
         return sb.toString();
     }
 
