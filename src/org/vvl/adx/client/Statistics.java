@@ -15,7 +15,7 @@ public class Statistics implements Runnable {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         while (true) {
             StringBuilder sb = new StringBuilder();
-            int requestAll = StatisticsData.request200Counts.get() + StatisticsData.request204Counts.get() + StatisticsData.request200Counts.get();
+            int requestAll = StatisticsData.request200Counts.get() + StatisticsData.request204Counts.get() + StatisticsData.request000Counts.get();
             // 日志数据
             sb.append("reqAllCounts:\t").append(requestAll)
                     .append("\treq200Counts:\t").append(StatisticsData.request200Counts.get())
