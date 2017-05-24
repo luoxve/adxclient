@@ -64,7 +64,9 @@ public class HttpCommon {
             httpPost.setEntity(se);
             // 设置请求和传输超时时间
             if (requestConfig == null) {
-                requestConfig = RequestConfig.custom().setSocketTimeout(5000).setConnectTimeout(5000).setConnectionRequestTimeout(5000).build();
+                requestConfig = RequestConfig.custom().setSocketTimeout(Config.SOCKET_TIMEOUT)
+                        .setConnectTimeout(Config.CONNECT_TIMEOUT)
+                        .setConnectionRequestTimeout(Config.CONNECTION_REQUEST_TIMEOUT).build();
             }
             httpPost.setConfig(requestConfig);
             // 加锁，防止请求地址占用
@@ -120,7 +122,9 @@ public class HttpCommon {
             HttpGet httpGet = new HttpGet(url);
             // 设置请求和传输超时时间
             if (requestConfig == null) {
-                requestConfig = RequestConfig.custom().setSocketTimeout(5000).setConnectTimeout(5000).setConnectionRequestTimeout(5000).build();
+                requestConfig = RequestConfig.custom().setSocketTimeout(Config.SOCKET_TIMEOUT)
+                        .setConnectTimeout(Config.CONNECT_TIMEOUT)
+                        .setConnectionRequestTimeout(Config.CONNECTION_REQUEST_TIMEOUT).build();
             }
             httpGet.setConfig(requestConfig);
             // 加锁，防止请求地址占用

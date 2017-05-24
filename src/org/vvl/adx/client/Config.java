@@ -33,11 +33,22 @@ public class Config {
     public static String CLICKURL;
 
     // 是否启动统计日志功能
-    public static boolean ISSTATISTICSLOG;
+    public static boolean ISSTATLOG;
+    // 是否启动统计204日志功能（若ISSTATLOG为false则些配置失效）
+    public static boolean ISSTAT204LOG;
+    // 是否启动统计000日志功能（若ISSTATLOG为false则些配置失效）
+    public static boolean ISSTAT000LOG;
     // 是否启动线程监控日志功能
     public static boolean ISMONITORLOG;
     // 是否启动图片加载
     public static boolean ISIMGSHOW;
+
+    // CONNECT_TIMEOUT
+    public static int CONNECT_TIMEOUT;
+    // SOCKET_TIMEOUT
+    public static int SOCKET_TIMEOUT;
+    // CONNECTION_REQUEST_TIMEOUT
+    public static int CONNECTION_REQUEST_TIMEOUT;
 
     /**
      * 初始化配置数据
@@ -58,11 +69,15 @@ public class Config {
         // 线程监控日志存放目录
         Config.THREADMONITORLOGDIR = getSystemEnv("THREADMONITORLOGDIR", "E:/opt/adxclient/log/"); // /opt/adxclient/log/ or E:/opt/adxclient/log/
         // 是否启动统计日志功能
-        Config.ISSTATISTICSLOG = Boolean.valueOf(getSystemEnv("ISSTATISTICSLOG", "true"));
+        Config.ISSTATLOG = Boolean.valueOf(getSystemEnv("ISSTATLOG", "false"));
         // 是否启动线程监控日志功能
         Config.ISMONITORLOG = Boolean.valueOf(getSystemEnv("ISMONITORLOG", "false"));
         // 是否启动图片加载
         Config.ISIMGSHOW = Boolean.valueOf(getSystemEnv("ISIMGSHOW", "false"));
+        // 是否启动统计204日志功能（若ISSTATLOG为false则些配置失效）
+        Config.ISSTAT204LOG = Boolean.valueOf(getSystemEnv("ISSTAT204LOG", "false"));
+        // 是否启动统计000日志功能（若ISSTATLOG为false则些配置失效）
+        Config.ISSTAT000LOG = Boolean.valueOf(getSystemEnv("ISSTAT000LOG", "false"));
 
         // 请求URL（DSP竞价URL）
         Config.DSPBIDURL = getSystemEnv("DSPBIDURL", "http://dsp.tsapk.com/mi/bid"); // http://60.206.107.185:8080/mi/bid or http://dsp.tsapk.com/mi/bid
@@ -74,5 +89,12 @@ public class Config {
         Config.IMPURL = getSystemEnv("IMPURL", "http://60.206.107.185/xiaomi/v1/i");
         // 曝光点击URL
         Config.CLICKURL = getSystemEnv("CLICKURL", "http://60.206.107.185/xiaomi/v1/c");
+
+        // CONNECT_TIMEOUT
+        Config.CONNECT_TIMEOUT = Integer.valueOf(getSystemEnv("CONNECT_TIMEOUT", "10000"));
+        // SOCKET_TIMEOUT
+        Config.SOCKET_TIMEOUT = Integer.valueOf(getSystemEnv("SOCKET_TIMEOUT", "10000"));
+        // CONNECTION_REQUEST_TIMEOUT
+        Config.CONNECTION_REQUEST_TIMEOUT = Integer.valueOf(getSystemEnv("CONNECTION_REQUEST_TIMEOUT", "2000"));
     }
 }

@@ -79,6 +79,8 @@ public class ExchangeSimulation implements Runnable {
                         String monitorLog = Thread.currentThread().getName() + "\t" + count + "\t" + fileName + "\t000\tthis file is not exists.\n";
                         pool.put(monitorLog);
                     }
+                    // 统计响应000的请求
+                    if (Config.ISSTATLOG && Config.ISSTAT000LOG) StatisticsData.request000Counts.incrementAndGet();
                     continue;
                 }
                 if (respStr == "204") {
@@ -86,6 +88,8 @@ public class ExchangeSimulation implements Runnable {
                         String monitorLog = Thread.currentThread().getName() + "\t" + count + "\t" + fileName + "\t204\tno contents.\n";
                         pool.put(monitorLog);
                     }
+                    // 统计响应204的请求
+                    if (Config.ISSTATLOG && Config.ISSTAT204LOG) StatisticsData.request204Counts.incrementAndGet();
                     continue;
                 }
                 if (Config.ISMONITORLOG) { // 是否启动线程监控
@@ -93,7 +97,7 @@ public class ExchangeSimulation implements Runnable {
                     pool.put(monitorLog);
                 }
                 // 统计响应200的请求
-                if (Config.ISSTATISTICSLOG) StatisticsData.request200Counts.incrementAndGet();
+                if (Config.ISSTATLOG) StatisticsData.request200Counts.incrementAndGet();
                 // 2.解析所需要的数据
                 ResonpseJsonAnalyzer respJson = new ResonpseJsonAnalyzer(respStr);
                 // 初始化数据
@@ -116,14 +120,14 @@ public class ExchangeSimulation implements Runnable {
 //                        adShow(imgUrl);
                         if (Config.ISIMGSHOW) gallery.put(imgUrl);
                         // 图片加载统计
-                        if (Config.ISSTATISTICSLOG) StatisticsData.imgCounts.incrementAndGet();
+                        if (Config.ISSTATLOG) StatisticsData.imgCounts.incrementAndGet();
                     }
                     if (impUrl != null) {
                         // 5.曝光请求
                         impUrl = replaceWinPrice(impUrl);
                         requestGet(impUrl);
                         // 曝光请求统计
-                        if (Config.ISSTATISTICSLOG)  StatisticsData.impCounts.incrementAndGet();
+                        if (Config.ISSTATLOG)  StatisticsData.impCounts.incrementAndGet();
                     }
                     if (clickUrl != null && random(Config.CLKBOUND)) {
                         // 替换曝光价格（胜出价格）
@@ -131,7 +135,7 @@ public class ExchangeSimulation implements Runnable {
                         // 6.曝光点击
                         requestGet(clickUrl);
                         // 点击统计
-                        if (Config.ISSTATISTICSLOG) StatisticsData.clickCounts.incrementAndGet();
+                        if (Config.ISSTATLOG) StatisticsData.clickCounts.incrementAndGet();
                     }
                 }
             } catch (Exception e) {

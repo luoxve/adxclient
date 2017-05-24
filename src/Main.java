@@ -31,7 +31,7 @@ public class Main {
                 // 输出线程监控信息
                 exec.submit(new Monitor(pool));
         }
-        if (Config.ISSTATISTICSLOG)
+        if (Config.ISSTATLOG)
             // 输出统计信息
             exec.submit(new Statistics());
         exec.shutdown();

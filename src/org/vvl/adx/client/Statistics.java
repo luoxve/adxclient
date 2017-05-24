@@ -15,8 +15,12 @@ public class Statistics implements Runnable {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         while (true) {
             StringBuilder sb = new StringBuilder();
+            int requestAll = StatisticsData.request200Counts.get() + StatisticsData.request204Counts.get() + StatisticsData.request200Counts.get();
             // 日志数据
-            sb.append("req200Counts:\t").append(StatisticsData.request200Counts.get())
+            sb.append("reqAllCounts:\t").append(requestAll)
+                    .append("\treq200Counts:\t").append(StatisticsData.request200Counts.get())
+                    .append("\treq204Counts:\t").append(StatisticsData.request204Counts.get())
+                    .append("\treq000Counts:\t").append(StatisticsData.request000Counts.get())
                     .append("\timpCounts:\t").append(StatisticsData.impCounts.get())
                     .append("\timgCounts:\t").append(StatisticsData.imgCounts.get())
                     .append("\tclickCounts:\t").append(StatisticsData.clickCounts.get())
@@ -27,7 +31,7 @@ public class Statistics implements Runnable {
             sb.append("curr time:\t").append(format.format(currentDate)).append("\n");
             writeLog(sb.toString().getBytes());
             try {
-                TimeUnit.SECONDS.sleep(10);
+                TimeUnit.SECONDS.sleep(60);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

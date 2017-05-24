@@ -15,6 +15,12 @@ public class StatisticsData {
     // 图片加载次数
     public static AtomicInteger imgCounts = new AtomicInteger(0);
 
+    // 204请求次数
+    public static AtomicInteger request204Counts = new AtomicInteger(0);
+    // 000请求次数（无JSON）
+    public static AtomicInteger request000Counts = new AtomicInteger(0);
+
+    @Deprecated
     public static void printCounts() {
         System.out.println("clickCounts:\t" + clickCounts.get() + "\timpCounts:\t" + impCounts.get() + "\timgCounts:\t" + imgCounts.get());
     }
